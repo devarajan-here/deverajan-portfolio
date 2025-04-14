@@ -105,3 +105,58 @@ canvas {
     font-size: 0.875rem;
     letter-spacing: 0.05em;
 }
+
+
+
+
+body {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full height of the viewport */
+    margin: 0; /* Remove default margin */
+}
+
+.about-section {
+    text-align: center; /* Center the text */
+    position: relative; /* Ensure it is positioned correctly */
+    z-index: 3; /* Make sure it is above the canvas */
+}
+
+.name-heading {
+    font-size: 80px; /* Increase the font size */
+    font-weight: bold; /* Make the font bold */
+    color: #FFFFFF; /* White color for the heading */
+    margin-bottom: 20px; /* Space between heading and button */
+    display: flex; /* Use flexbox to align letters */
+    justify-content: center; /* Center the letters */
+}
+
+.letter {
+    opacity: 0; /* Start with opacity 0 for animation */
+    transform: translateY(-20px); /* Start slightly above */
+    animation: pop-up 0.5s forwards; /* Animation for pop-up effect */
+}
+
+@keyframes pop-up {
+    to {
+        opacity: 1; /* Fade in */
+        transform: translateY(0); /* Move to original position */
+    }
+}
+
+.more-about-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: white; /* Change button background color to white */
+    color: #000; /* Change font color to black for contrast */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    border: 1px solid #000; /* Optional: Add a border for better visibility */
+}
+
+.more-about-button:hover {
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly change color on hover */
+}

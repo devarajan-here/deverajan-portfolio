@@ -117,3 +117,12 @@ document.addEventListener("keydown", (e) => {
 });
 
 updateSpeed();
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const letters = document.querySelectorAll('.letter');
+    letters.forEach((letter, index) => {
+        letter.style.animationDelay = `${index * 0.4}s`; // Delay each letter's animation
+        letter.classList.add('pop-up'); // Trigger the animation
+    });
+});
