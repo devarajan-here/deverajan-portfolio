@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devarajan P M | Cybersecurity Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> <!-- Import Montserrat font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .orbitron {
+            font-family:  'Montserrat', sans-serif;
+        }
+        
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-card {
+            background: rgba(74, 82, 102, 0.226);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(204, 197, 195, 0.2);
+            box-shadow: 0 0 20px rgba(221, 115, 15, 0.1);
+        }
+        
+        .skill-pill {
+            background: rgba(238, 238, 238, 0.1);
+            border: 1px solid rgba(231, 241, 235, 0.637);
+        }
+        
+        .certificate-pill {
+            background: rgba(96, 165, 250, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+        }
+        
+        .experience-pill {
+            background: rgba(249, 168, 212, 0.1);
+            border: 1px solid rgba(249, 168, 212, 0.3);
+        }
+        
+        .project-pill {
+            background: rgba(216, 180, 254, 0.1);
+            border: 1px solid rgba(216, 180, 254, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #87b899;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active-nav::after {
+            width: 100%;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4ade80;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: -18px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(28, 26, 161, 0.7);
+        }
+        
+        .grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                linear-gradient(rgba(65, 20, 20, 0.459) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        
+        .tunnel-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.9) 70%);
+            pointer-events: none;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        
+        .pulse {
+            animation: pulse 3s infinite ease-in-out;
+        }
+        
+        .speed-control {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+        }
+        
+        .speed-control button {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .speed-control button:hover {
+            background: rgba(255, 255, 255, 0.692);
+        }
+        
+        .speed-display {
+            color: white;
+            min-width: 5rem;
+            text-align: center;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hyperspace Background Animation -->
+    <canvas id="space"></canvas>
+    <div class="overlay">
+        <div class="grid-lines"></div>
+        <div class="tunnel-effect pulse"></div>
+    </div>
+    
+    <!-- Speed Control -->
+    <div class="speed-control">
+        <button id="speedDown" class="hover:bg-white hover:bg-opacity-20">-</button>
+        <div class="speed-display" id="speedDisplay">WARP 1</div>
+        <button id="speedUp" class="hover:bg-white hover:bg-opacity-20">+</button>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Header/Navigation -->
+        <header class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+                        <span class="text-white font-bold">D</span>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent orbitron">DEVARAJAN P M</span>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#about" class="nav-link text-slate-300 hover:text-white transition orbitron">ABOUT</a>
+                    <a href="#skills" class="nav-link text-slate-300 hover:text-white transition orbitron">SKILLS</a>
+                    <a href="#experience" class="nav-link text-slate-300 hover:text-white transition orbitron">EXPERIENCE</a>
+                    <a href="#projects" class="nav-link text-slate-300 hover:text-white transition orbitron">PROJECTS</a>
+                    <a href="#contact" class="nav-link text-slate-300 hover:text-white transition orbitron">CONTACT</a>
+                </nav>
+                <button class="md:hidden text-slate-300" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95 backdrop-blur-lg py-4 px-4 border-t border-slate-800">
+                <div class="flex flex-col space-y-4 orbitron">
+                    <a href="#about" class="text-slate-300 hover:text-white transition">ABOUT</a>
+                    <a href="#skills" class="text-slate-300 hover:text-white transition">SKILLS</a>
+                    <a href="#experience" class="text-slate-300 hover:text-white transition">EXPERIENCE</a>
+                    <a href="#projects" class="text-slate-300 hover:text-white transition">PROJECTS</a>
+                    <a href="#contact" class="text-slate-300 hover:text-white transition">CONTACT</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="about" class="container mx-auto px-4 py-20 md:py-32 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 orbitron">
+                    <span class="text-white">CYBERSECURITY</span>
+                    <span class="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent glow-text"> ANALYST</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl text-slate-300 mb-6 orbitron">DEVARAJAN P M</h2>
+                <div class="flex items-center space-x-4 mb-6">
+                    <span class="text-slate-400"><i class="fas fa-phone-alt mr-2"></i> +91 8330857529</span>
+                    <span class="text-slate-400"><i class="fas fa-map-marker-alt mr-2"></i> Thrissur, Kodungallur</span>
+                </div>
+                <div class="flex flex-wrap gap-4 mb-8">
+                    <a href="#contact" class="px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 rounded-full text-white font-medium hover:opacity-90 transition orbitron">
+                        CONTACT ME
+                    </a>
+                    <a href="#projects" class="px-6 py-3 border border-slate-600 rounded-full text-white font-medium hover:bg-slate-800 transition orbitron">
+                        VIEW PROJECTS
+                    </a>
+                </div>
+                <div class="flex space-x-7">
+                    <a href="mailto:devarajanpm79@gmail.com" class="text-slate-400 hover:text-green-400 transition">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/devarajan-p-m/" target="_blank" class="text-slate-400 hover:text-blue-400 transition">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="https://github.com/devarajan-here" target="_blank" class="text-slate-400 hover:text-white transition">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/dev_raj_an_/" target="_blank" class="text-slate-400 hover:text-red-400 transition">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="http://www.devarajan.com" target="_blank" class="text-slate-400 hover:text-purple-400 transition">
+                        <i class="fas fa-globe text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80">
+                    <div class="absolute inset-0 bg-gradient-to-r from-green-500 to-blue-500 rounded-full opacity-20 blur-xl"></div>
+                    <div class="absolute inset-0 bg-slate-800 rounded-full flex items-center justify-center overflow-hidden border-2 border-slate-700 floating">
+                        <div class="text-center p-6">
+                            <div class="w-32 h-32 md:w-40 md:h-40 rounded-full bg-slate-700 mx-auto mb-4 overflow-hidden border-4 border-green-500/30">
+                                <!-- Placeholder for profile image -->
+                                <img src="https://iili.io/3lSZjsI.png" alt="Your Name" class="w-full h-full object-cover" />
+                            </div>
+                            <h3 class="text-xl font-bold text-white">DEVARAJAN P M</h3>
+                            <p class="text-green-400">Cybersecurity Engineer</p>
+                            <div class="mt-3 flex justify-center space-x-2">
+                                <span class="text-xs px-2 py-1 bg-green-900/30 text-green-400 rounded-full">SOC</span>
+                                <span class="text-xs px-2 py-1 bg-blue-900/30 text-blue-400 rounded-full">GRC</span>
+                                <span class="text-xs px-2 py-1 bg-purple-900/30 text-purple-400 rounded-full">Blue Team</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Objective Section -->
+        <section class="container mx-auto px-4 py-12">
+            <div class="section-card rounded-xl p-8 shadow-lg">
+                <h2 class="text-2xl font-bold mb-4 text-white flex items-center orbitron">
+                    <span class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center mr-4">
+                        <i class="fas fa-bullseye text-white text-sm"></i>
+                    </span>
+                    OBJECTIVE
+                </h2>
+                <p class="text-slate-300">
+                    Cybersecurity Engineer with hands-on expertise in network security, threat intelligence, and incident response. Skilled at identifying and mitigating cyber threats in real-time to prevent data breaches and strengthen organizational security posture. Proven ability to analyze logs, monitor alerts, and respond to evolving threats using SIEM tools, threat hunting techniques, and security frameworks. Driven to protect digital assets and ensure operational resilience in high-risk environments..
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="container mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2 text-white orbitron">SKILLS & EXPERTISE</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-green-400 to-blue-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Technical Skills -->
+                <div class="section-card rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4 text-white flex items-center orbitron">
+                        <i class="fas fa-code text-green-400 mr-3"></i>
+                        TECHNICAL SKILLS
+                    </h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Wazuh</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Network Security</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Threat Intelligence</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">OS: Linux, Windows, Parrot, MAC</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Active Directory</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Networking: TCP/IP, DNS, VPN, Ports and Protocols, Packet Analysis</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Vulnerability Assessment</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Security Tools</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Attack Techniques</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Defensive Strategies</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Incident Response</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">SIEM</span> 
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">SQL</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Python</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">Bash</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">HTML</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-green-400">C</span>
+                    </div>
+                </div>
+                
+                <!-- Soft Skills -->
+                <div class="section-card rounded-xl p-6">
+                    <h3 class="text-xl font-bold mb-4 text-white flex items-center orbitron">
+                        <i class="fas fa-users text-blue-400 mr-3"></i>
+                        SOFT SKILLS
+                    </h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-pill px-4 py-2 rounded-full text-blue-400">Problem Solving</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-blue-400">Security Mindset</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-blue-400">Creative Thinking</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-blue-400">Time Management</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-blue-400">Team Player</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-blue-400">Curiosity & Continuous Learning</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-blue-400">Adaptability</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-blue-400">Communication</span>
+                        <span class="skill-pill px-4 py-2 rounded-full text-blue-400">Fast Learner</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificates Section -->
+        <section class="container mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2 text-white orbitron">CERTIFICATIONS</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="section-card rounded-xl p-6 flex items-start">
+                    <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                        <i class="fas fa-certificate text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1">Google Cybersecurity Professional</h3>
+                        <p class="text-slate-400 text-sm">Coursera, Google</p>
+                    </div>
+                </div>
+                
+                <div class="section-card rounded-xl p-6 flex items-start">
+                    <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                        <i class="fas fa-certificate text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1">Cyber Security Analyst (C3SA)</h3>
+                        <p class="text-slate-400 text-sm">CyberWarFare Labs</p>
+                    </div>
+                </div>
+                
+                <div class="section-card rounded-xl p-6 flex items-start">
+                    <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                        <i class="fas fa-certificate text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1">CISSP</h3>
+                        <p class="text-slate-400 text-sm">Simplilearn</p>
+                    </div>
+                </div>
+                
+                <div class="section-card rounded-xl p-6 flex items-start">
+                    <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                        <i class="fas fa-certificate text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1">Ethical Hacking Associate</h3>
+                        <p class="text-slate-400 text-sm">Redteam</p>
+                    </div>
+                </div>
+                
+                <div class="section-card rounded-xl p-6 flex items-start">
+                    <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                        <i class="fas fa-certificate text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1">Ethical Hacking Essentials</h3>
+                        <p class="text-slate-400 text-sm">EC-Council</p>
+                    </div>
+                </div>
+                
+                <div class="section-card rounded-xl p-6 flex items-start">
+                    <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                        <i class="fas fa-certificate text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-1">CompTia Security+</h3>
+                        <p class="text-slate-400 text-sm">CompTia</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="container mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2 text-white orbitron">PROFESSIONAL EXPERIENCE</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-purple-400 to-pink-500 mx-auto"></div>
+            </div>
+            
+            <div class="relative pl-8 timeline">
+                <!-- Experience 1 -->
+                <div class="relative mb-8 timeline-item">
+                    <div class="section-card rounded-xl p-6">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <h3 class="text-xl font-bold text-white orbitron">Cybersecurity Analyst Intern</h3>
+                            <span class="experience-pill px-3 py-1 rounded-full text-pink-400 text-sm mt-2 md:mt-0 orbitron">bblewrap</span>
+                        </div>
+                        <p class="text-slate-300 mb-4">
+                            As a Cybersecurity Analyst Intern at Bblewrap, I actively contributed to securing the Manappuram Finance MADU app by identifying vulnerabilities and assisting in the implementation of effective security measures. During this internship, I utilized tools like Wireshark, Splunk, and VirusTotal to analyze system logs and detect potential threats. I also applied knowledge of MITRE ATT&CK, SIEM monitoring, and phishing analysis to support real-time incident response and threat intelligence gathering. Working in a virtualized environment using Parrot OS and VirtualBox, I collaborated with the team to enhance the app’s overall security posture and gained hands-on experience in monitoring, investigating suspicious activities, and applying proactive cybersecurity practices.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Vulnerability Assessment</span>
+                            <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Log Analysis</span>
+                            <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Security Measures</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Experience 2 -->
+                <div class="relative mb-8 timeline-item">
+                    <div class="section-card rounded-xl p-6">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                            <h3 class="text-xl font-bold text-white orbitron">Cybersecurity Engineer Intern</h3>
+                            <span class="experience-pill px-3 py-1 rounded-full text-pink-400 text-sm mt-2 md:mt-0 orbitron">finpro Technologies</span>
+                        </div>
+                        <p class="text-slate-300 mb-4">
+                            As a Cybersecurity Engineer Intern at Finpro Technologies, I supported corporate demos by walking clients through the end-to-end solution development process—from gathering security requirements to demonstrating implementation strategies. I contributed to designing secure workflows and helped translate technical concepts into client-friendly explanations. During this time, I utilized my understanding of network security, threat modeling, and endpoint protection, while strengthening my communication and presentation skills. This role enhanced my ability to align cybersecurity solutions with business needs and collaborate effectively across technical and non-technical teams.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Client Demos</span>
+                            <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Solution Development</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Additional Experience -->
+                <div class="relative mb-8 timeline-item">
+                    <div class="section-card rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-white mb-4 orbitron">ADDITIONAL EXPERIENCE</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-slate-300 mb-2">TryHackMe - Cybersecurity Analyst Learning Path</h4>
+                            <p class="text-slate-400 text-sm">
+                                Cybersecurity Basics and Fundamental Skills, Introduction to SIEM, Endpoint Security and Cyber Threat Intelligence and Phishing Analysis.
+                            </p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-slate-300 mb-2">Tata Cybersecurity Security Analyst Job Simulation (Forage)</h4>
+                            <p class="text-slate-400 text-sm">
+                                Completed a job simulation focusing on identity and access management (IAM) at Tata Consultancy Services. Collaborated with a Cybersecurity Consulting team during the simulation.
+                            </p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-slate-300 mb-2">LetsDefend - Cybersecurity Training</h4>
+                            <p class="text-slate-400 text-sm">
+                                SOC Fundamentals, Cyber Kill Chain, MITRE ATT&CK Framework and Phishing Email Analysis.
+                            </p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-slate-300 mb-2">ShadowFox Cybersecurity Internship</h4>
+                            <p class="text-slate-400 text-sm">
+                                Conducted in-depth investigations of security incidents, including malware analysis and reverse engineering.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-slate-300 mb-2">Zindot Technologies Cybersecurity Internship</h4>
+                            <p class="text-slate-400 text-sm">
+                                Cybersecurity Basics and Fundamental Skills about all the hacking phases and roles of Digital Forensics after breaches. Post Incident Review basics that can include in the soc analyst.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="container mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2 text-white orbitron">PROJECTS</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-indigo-400 to-purple-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="section-card rounded-xl p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-white orbitron">Malware-Analyzer</h3>
+                        <span class="project-pill px-3 py-1 rounded-full text-purple-400 text-sm orbitron">Security Tool</span>
+                    </div>
+                    <p class="text-slate-300 mb-4">
+                        This project demonstrates a proactive approach to cybersecurity by developing a tool that empowers users to identify and mitigate potential security risks associated with malicious links and content.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Python</span>
+                        <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Security Analysis</span>
+                        <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Threat Detection</span>
+                    </div>
+                    <a href="https://github.com/devarajan-here/Malware-analyzer" class="text-purple-400 hover:text-purple-300 transition flex items-center orbitron">
+                        TRY IT HERE
+                        <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Project 2 -->
+<div class="section-card rounded-xl p-6">
+    <div class="flex justify-between items-start mb-4">
+        <h3 class="text-xl font-bold text-white orbitron">Interview-Dev-AI</h3>
+        <span class="project-pill px-3 py-1 rounded-full text-purple-400 text-sm orbitron">AI Tool</span>
+    </div>
+    <p class="text-slate-300 mb-4">
+        A private AI-based assistant designed to help users prepare for interviews by simulating technical and behavioral questions. This project aims to enhance interview readiness through personalized feedback and real-time response analysis.
+    </p>
+    <div class="flex flex-wrap gap-2 mb-4">
+        <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Python</span>
+        <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">AI Integration</span>
+        <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Interview Preparation</span>
+    </div>
+    <a href="#" class="text-purple-400 hover:text-purple-300 transition flex items-center orbitron">
+        PRIVATE PROJECT
+        <i class="fas fa-lock ml-2 text-sm"></i>
+    </a>
+</div>
+
+                
+                <!-- Project 3 -->
+                <div class="section-card rounded-xl p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-white orbitron">Students-Corner</h3>
+                        <span class="project-pill px-3 py-1 rounded-full text-indigo-400 text-sm orbitron">Educational Platform</span>
+                    </div>
+                    <p class="text-slate-300 mb-4">
+                        This project aims to streamline communication and information sharing within the educational community, ultimately enhancing the learning experience for students and educators alike.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Web Development</span>
+                        <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Communication</span>
+                        <span class="text-xs px-2 py-1 bg-slate-800 rounded-full text-slate-300">Education</span>
+                    </div>
+                    <a href="https://github.com/devarajan-here/students-corner" class="text-indigo-400 hover:text-indigo-300 transition flex items-center orbitron">
+                        TRY IT HERE
+                        <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Education Section -->
+        <section class="container mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2 text-white orbitron">EDUCATION</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-400 to-cyan-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Education 1 -->
+                <div class="section-card rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                            <i class="fas fa-graduation-cap text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white orbitron">B.Tech In Computer Science</h3>
+                            <p class="text-slate-400 text-sm">APJ Abdul Kalam Technological University</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-300 text-sm">2020 - 2024</span>
+                        <span class="text-blue-400 text-sm font-medium">First Class (6.68)</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mt-2">College: SNMIMT — SNM Institute of Management and Technology</p>
+                </div>
+                
+                <!-- Education 2 -->
+                <div class="section-card rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                            <i class="fas fa-school text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white orbitron">Plus two Computer Science</h3>
+                            <p class="text-slate-400 text-sm">Kerala State Board</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-300 text-sm">2018 - 2020</span>
+                        <span class="text-blue-400 text-sm font-medium">76%</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mt-2">School: MES P Vemballur Higher Secondary School</p>
+                </div>
+                
+                <!-- Education 3 -->
+                <div class="section-card rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                            <i class="fas fa-school text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white orbitron">Class X</h3>
+                            <p class="text-slate-400 text-sm">Kerala State Board (THSLC)</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-300 text-sm">2017 - 2018</span>
+                        <span class="text-blue-400 text-sm font-medium">98.5%</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mt-2">School: T.H.S Kodungallur</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership Section -->
+        <section class="container mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2 text-white orbitron">LEADERSHIP & ACTIVITIES</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-green-400 to-yellow-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Leadership 1 -->
+                <div class="section-card rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-green-500/20 p-3 rounded-lg mr-4">
+                            <i class="fas fa-users text-green-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white orbitron">ISTE Member and Student Coordinator @SNMIMT</h3>
+                            <p class="text-slate-400 text-sm">
+                                As a member of ISTE (Indian Society for Technical Education) and a student coordinator at SNMIMT, participated in technical education activities, workshops, seminars, and competitions organized by ISTE.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Leadership 2 -->
+                <div class="section-card rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-green-500/20 p-3 rounded-lg mr-4">
+                            <i class="fas fa-laptop-code text-green-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white orbitron">Espaniac CSE Association Member and Student Coordinator @SNMIMT</h3>
+                            <p class="text-slate-400 text-sm">
+                                Being a member and student coordinator of the Espaniac CSE Association suggests involvement in activities related to Computer Science and Engineering (CSE).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Leadership 3 -->
+                <div class="section-card rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-green-500/20 p-3 rounded-lg mr-4">
+                            <i class="fab fa-ubuntu text-green-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white orbitron">FOSS Club Member and Student Coordinator @SNMIMT</h3>
+                            <p class="text-slate-400 text-sm">
+                                As a member of the FOSS (Free and Open Source Software) Club and a student coordinator, promoted the use of open-source technologies, organized workshops on open-source software, contributed to open-source projects, and advocated for the adoption of open-source practices within the SNMIMT community.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Leadership 4 -->
+                <div class="section-card rounded-xl p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-green-500/20 p-3 rounded-lg mr-4">
+                            <i class="fas fa-hands-helping text-green-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white orbitron">Creative Head of NSS Unit 129 @SNMIMT</h3>
+                            <p class="text-slate-400 text-sm">
+                                Serving as the Creative Head of the NSS (National Service Scheme) Unit 129 involved leading and coordinating creative initiatives for community service projects. Organized awareness campaigns, cultural events, social activities, and volunteer drives to address community needs and promote social responsibility among students.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="container mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2 text-white orbitron">GET IN TOUCH</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-blue-400 to-green-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Contact Info -->
+                <div class="section-card rounded-xl p-8">
+                    <h3 class="text-xl font-bold mb-6 text-white orbitron">CONTACT INFORMATION</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-phone-alt text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-300 orbitron">PHONE</h4>
+                                <a href="tel:+918330857529" class="text-slate-400 hover:text-blue-400 transition">+91 8330857529</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-envelope text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-300 orbitron">EMAIL</h4>
+                                <a href="mailto:devarajanpm79@gmail.com" class="text-slate-400 hover:text-blue-400 transition">devarajanpm79@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-map-marker-alt text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-300 orbitron">LOCATION</h4>
+                                <p class="text-slate-400">Thrissur, Kodungallur</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-500/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-globe text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-300 orbitron">WEBSITE</h4>
+                                <a href="http://www.devarajan.com" target="_blank" class="text-slate-400 hover:text-blue-400 transition">www.devarajan.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-bold text-slate-300 mb-4 orbitron">CONNECT WITH ME</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://www.linkedin.com/in/devarajan-p-m/" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-blue-600 hover:text-white transition">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://github.com/devarajan-here" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-gray-800 hover:text-white transition">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.instagram.com/dev_raj_an_/" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-red-600 hover:text-white transition">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="https://holopin.io/@devarajanhere" target="_blank" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-purple-600 hover:text-white transition">
+                                <i class="fas fa-certificate"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="section-card rounded-xl p-8">
+                    <h3 class="text-xl font-bold mb-6 text-white orbitron">SEND ME A MESSAGE</h3>
+                    <form id="contactForm" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-slate-300 mb-2 orbitron">NAME</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" required>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-slate-300 mb-2 orbitron">EMAIL</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" required>
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-slate-300 mb-2 orbitron">SUBJECT</label>
+                            <input type="text" id="subject" name="subject" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" required>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-slate-300 mb-2 orbitron">MESSAGE</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg text-white font-medium hover:opacity-90 transition orbitron">
+                            SEND MESSAGE
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-slate-900/80 border-t border-slate-800 py-8">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                        <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+                            <span class="text-white font-bold">D</span>
+                        </div>
+                        <span class="text-xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent orbitron">DEVARAJAN P M</span>
+                    </div>
+                    
+                    <div class="text-slate-400 text-sm orbitron">
+                        © <span id="currentYear"></span> ALL RIGHTS RESERVED.
+                    </div>
+                    
+                    <div class="flex space-x-4 mt-4 md:mt-0">
+                        <a href="https://www.linkedin.com/in/devarajan-p-m/" target="_blank" class="text-slate-400 hover:text-blue-400 transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/devarajan-here" target="_blank" class="text-slate-400 hover:text-white transition">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/dev_raj_an_/" target="_blank" class="text-slate-400 hover:text-red-400 transition">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="mailto:devarajanpm79@gmail.com" class="text-slate-400 hover:text-green-400 transition">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Hyperspace Background Animation
+        const canvas = document.getElementById("space");
+        const ctx = canvas.getContext("2d");
+        let w, h;
+        
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resize);
+        resize();
+        
+        // Starfield parameters
+        let speed = 2;
+        const baseSpeed = 2;
+        const numStars = 800;
+        const stars = [];
+        
+        // Initialize stars with different types
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * w - w / 2,
+                y: Math.random() * h - h / 2,
+                z: Math.random() * w,
+                size: Math.random() * 3 + 0.5,
+                type: Math.random() > 0.9 ? 2 : (Math.random() > 0.7 ? 1 : 0) // 0=normal, 1=streak, 2=sparkle
+            });
+        }
+        
+        // Draw function with optimizations
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, w, h);
+            
+            // Draw stars with different behaviors
+            for (let i = 0; i < numStars; i++) {
+                const star = stars[i];
+                star.z -= speed * (star.type === 2 ? 1.5 : 1); // Sparkles move faster
+                
+                if (star.z <= 0) {
+                    star.x = Math.random() * w - w / 2;
+                    star.y = Math.random() * h - h / 2;
+                    star.z = w;
+                    star.size = Math.random() * 3 + 0.5;
+                    star.type = Math.random() > 0.9 ? 2 : (Math.random() > 0.7 ? 1 : 0);
+                }
+                
+                const sx = (star.x / star.z) * w / 2 + w / 2;
+                const sy = (star.y / star.z) * h / 2 + h / 2;
+                const radius = (1 - star.z / w) * star.size;
+                const opacity = Math.min(1, (1 - star.z / w) * 2);
+                
+                if (star.type === 0) {
+                    // Normal star
+                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                } else if (star.type === 1) {
+                    // Streak star
+                    const prevZ = star.z + speed;
+                    const prevX = (star.x / prevZ) * w / 2 + w / 2;
+                    const prevY = (star.y / prevZ) * h / 2 + h / 2;
+                    
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+                    ctx.lineWidth = radius * 0.7;
+                    ctx.beginPath();
+                    ctx.moveTo(prevX, prevY);
+                    ctx.lineTo(sx, sy);
+                    ctx.stroke();
+                } else {
+                    // Sparkle star
+                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.8})`;
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, radius * 1.5, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, radius * 0.7, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            requestAnimationFrame(draw);
+        }
+        
+        // Start animation
+        draw();
+        
+        // Speed control with enhanced feedback
+        const speedDisplay = document.getElementById("speedDisplay");
+        const speedUp = document.getElementById("speedUp");
+        const speedDown = document.getElementById("speedDown");
+        
+        let speedLevel = 1;
+        const maxSpeed = 10;
+        
+        function updateSpeed() {
+            speed = baseSpeed * speedLevel;
+            speedDisplay.textContent = `WARP ${speedLevel}`;
+            
+            // Add visual feedback
+            if (speedLevel >= 7) {
+                speedDisplay.classList.add('text-red-400');
+                speedDisplay.classList.remove('text-yellow-400', 'text-white');
+            } else if (speedLevel >= 4) {
+                speedDisplay.classList.add('text-yellow-400');
+                speedDisplay.classList.remove('text-red-400', 'text-white');
+            } else {
+                speedDisplay.classList.add('text-white');
+                speedDisplay.classList.remove('text-red-400', 'text-yellow-400');
+            }
+            
+            // Add tunnel effect intensity
+            document.querySelector('.tunnel-effect').style.background = 
+                `radial-gradient(circle at center, transparent 0%, rgba(0,0,0,${0.7 + speedLevel * 0.03}) 70%)`;
+        }
+        
+        speedUp.addEventListener('click', () => {
+            if (speedLevel < maxSpeed) {
+                speedLevel++;
+                updateSpeed();
+            }
+        });
+        
+        speedDown.addEventListener('click', () => {
+            if (speedLevel > 1) {
+                speedLevel--;
+                updateSpeed();
+            }
+        });
+        
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp' || e.key === '+') {
+                speedUp.click();
+            } else if (e.key === 'ArrowDown' || e.key === '-') {
+                speedDown.click();
+            }
+        });
+        
+        // Initialize
+        updateSpeed();
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Highlight active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
+        
+        // Simple form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Here you would typically send the form data to a server
+            // For this example, we'll just show an alert
+            alert('Thank you for your message! I will get back to you soon.');
+            
+            // Reset the form
+            this.reset();
+        });
+    </script>
+</body>
+</html>
